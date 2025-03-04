@@ -18,7 +18,6 @@ class ImageTemperatureViewModel: ObservableObject {
     private let processingQueue = DispatchQueue(label: "image.processing", qos: .userInitiated)
 
     init() {
-        // Debounce slider input to avoid excessive processing
         $selectedImage
             .sink { [weak self] _ in
                 self?.editedImage = nil
@@ -26,13 +25,14 @@ class ImageTemperatureViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
+        // Throttling slider input to avoid excessive processing
         $temperature
-            .handleEvents(receiveOutput: { temperature in
+            .handleEvents(receiveOutput: { [weak self] temperature in
                 switch temperature {
-                case 0: self.sliderTintColor = .gray
-                case ..<0: self.sliderTintColor = .blue
-                case 0...50: self.sliderTintColor = .orange
-                default: self.sliderTintColor = .red
+                case 0: self?.sliderTintColor = .gray
+                case ..<0: self?.sliderTintColor = .blue
+                case 0...50: self?.sliderTintColor = .orange
+                default: self?.sliderTintColor = .red
                 }
             })
             .throttle(for: .milliseconds(200), scheduler: DispatchQueue.main, latest: true)
@@ -52,12 +52,12 @@ class ImageTemperatureViewModel: ObservableObject {
     private func applyTemperatureChange(_ newValue: Float) {
         guard let originalImage = self.selectedImage else { return }
 
-        processingQueue.async {
+        processingQueue.async { [weak self] in
             autoreleasepool {
                 let newImage = OpenCV.adjustTemperature(for: originalImage, withValue: newValue)
                 
                 DispatchQueue.main.async {
-                    self.editedImage = newImage
+                    self?.editedImage = newImage
                 }
             }
         }
