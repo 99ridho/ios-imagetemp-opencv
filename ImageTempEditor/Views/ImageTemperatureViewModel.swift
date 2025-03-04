@@ -35,7 +35,7 @@ class ImageTemperatureViewModel: ObservableObject {
                 default: self.sliderTintColor = .red
                 }
             })
-            .debounce(for: .milliseconds(150), scheduler: DispatchQueue.main)
+            .throttle(for: .milliseconds(200), scheduler: DispatchQueue.main, latest: true)
             .removeDuplicates()
             .sink { [weak self] newTemperature in
                 self?.applyTemperatureChange(newTemperature)
