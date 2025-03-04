@@ -42,6 +42,11 @@ class ImageTemperatureViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+    
+    func saveImage() {
+        guard let editedImage = editedImage else { return }
+        UIImageWriteToSavedPhotosAlbum(editedImage, nil, nil, nil)
+    }
 
     /// Apply temperature changes in the background to avoid UI lag
     private func applyTemperatureChange(_ newValue: Float) {

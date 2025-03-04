@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import Photos
 
 struct ImageTemperatureContentView: View {
     @StateObject private var viewModel = ImageTemperatureViewModel()
     @State private var isImagePickerPresented = false
+    @State private var alertShown: Bool = false
+    @State private var errorAlertShown: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -25,7 +28,7 @@ struct ImageTemperatureContentView: View {
                             .tint(viewModel.sliderTintColor)
                         
                         Button(action: {
-                            print("Save button tapped")
+                            self.saveImage()
                         }) {
                             HStack {
                                 Image(systemName: "externaldrive.fill")
@@ -34,12 +37,13 @@ struct ImageTemperatureContentView: View {
                             }
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(Color.blue)
+                            .background(viewModel.temperature != 0 ? Color.blue : Color.gray)
                             .foregroundColor(.white)
                             .cornerRadius(4)
                         }
                         .buttonStyle(.borderless)
                         .padding()
+                        .disabled(viewModel.temperature == 0)
                     }
                     
                 } else {
@@ -72,9 +76,51 @@ struct ImageTemperatureContentView: View {
                     selectedImage: $viewModel.selectedImage
                 )
             }
+            .alert("Save Image Success", isPresented: $alertShown) {
+                Button("OK") {
+                    self.alertShown = false
+                }
+            }
             .onAppear {
                 print(OpenCV.getVersion())
             }
+        }
+    }
+    
+    private func saveImage() {
+        let doSaveImage: () -> Void = { () in
+            self.viewModel.saveImage()
+            self.alertShown = true
+        }
+        
+        let status = PHPhotoLibrary.authorizationStatus(for: .addOnly)
+        
+        switch status {
+        case .authorized:
+            doSaveImage()
+        case .denied, .restricted:
+            self.errorAlertShown = true
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
+                DispatchQueue.main.async {
+                    switch status {
+                    case .authorized:
+                        doSaveImage()
+                    case .denied, .restricted:
+                        self.errorAlertShown = true
+                    case .notDetermined:
+                        break
+                    case .limited:
+                        break
+                    @unknown default:
+                        break
+                    }
+                }
+            }
+        case .limited:
+            break
+        @unknown default:
+            break
         }
     }
 }

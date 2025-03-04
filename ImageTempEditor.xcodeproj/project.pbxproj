@@ -31,6 +31,7 @@
 		7F85C6F32D769DB300A914A5 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		7F889DE42D76D6FE0019A791 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		7FAA79072D76F88A00B12453 /* ImageTemperatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTemperatureViewModel.swift; sourceTree = "<group>"; };
+		7FAA790A2D7712B100B12453 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FC97A7D2D76B23E00D4DB23 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		7FC97A7E2D76B23E00D4DB23 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		7FC97A7F2D76B23E00D4DB23 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -85,6 +86,7 @@
 				7FC97A872D76B2BE00D4DB23 /* OpenCV */,
 				7FC97A762D76AC1B00D4DB23 /* Components */,
 				7F0EF46B2C3C4F7700B0A5DC /* ImageTempEditorApp.swift */,
+				7FAA790A2D7712B100B12453 /* Info.plist */,
 			);
 			path = ImageTempEditor;
 			sourceTree = "<group>";
@@ -372,6 +374,7 @@
 				);
 				GCC_PREFIX_HEADER = ImageTempEditor/Headers/PrefixHeader.pch;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ImageTempEditor/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -409,6 +412,7 @@
 				);
 				GCC_PREFIX_HEADER = ImageTempEditor/Headers/PrefixHeader.pch;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ImageTempEditor/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
