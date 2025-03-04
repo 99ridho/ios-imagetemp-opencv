@@ -34,12 +34,12 @@
 
     if (temperature > 0) {
         // Warmer: Increase Red, Decrease Blue
-        channels[0] += cv::Scalar(scale * 255, scale * 255, scale * 255); // Increase Red
-        channels[2] -= cv::Scalar(scale * 255, scale * 255, scale * 255); // Decrease Blue
+        channels[0] += cv::Scalar(scale * 128, scale * 128, scale * 128); // Increase Red
+        channels[2] -= cv::Scalar(scale * 128, scale * 128, scale * 128); // Decrease Blue
     } else {
         // Colder: Increase Blue, Decrease Red
-        channels[2] += cv::Scalar(scale * 255, scale * 255, scale * 255); // Increase Blue
-        channels[0] -= cv::Scalar(scale * 255, scale * 255, scale * 255); // Decrease Red
+        channels[2] += cv::Scalar(scale * 128, scale * 128, scale * 128); // Increase Blue
+        channels[0] -= cv::Scalar(scale * 128, scale * 128, scale * 128); // Decrease Red
     }
 
     // Clip values to 0-255 to avoid overflow

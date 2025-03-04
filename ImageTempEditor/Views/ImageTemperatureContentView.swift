@@ -24,7 +24,7 @@ struct ImageTemperatureContentView: View {
                     
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Image Temperature")
-                        Slider(value: $viewModel.temperature, in: -100...100, step: 0.1)
+                        Slider(value: $viewModel.temperature, in: -100...100, step: 1)
                             .tint(viewModel.sliderTintColor)
                         
                         Button(action: {
