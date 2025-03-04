@@ -29,7 +29,7 @@
     std::vector<cv::Mat> channels(3);
     cv::split(mat, channels);
 
-    // Normalize temperature to the range [0, 1] based on the temperature scale (-50 to 50)
+    // Normalize temperature to the range [0, 1] based on the temperature scale (-100 to 100)
     float scale = fabs(temperature) / 100.0;  // Normalize to [0, 1]
 
     if (temperature > 0) {
