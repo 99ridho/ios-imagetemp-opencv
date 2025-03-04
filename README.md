@@ -28,4 +28,4 @@ When using OpenCV, we need to load the image first; then, we split the channels 
 
 ## Showcase
 
-[video](https://github.com/user-attachments/assets/eda8d5fd-b65d-40ef-9a18-b17c611f5123)
+[video](https://github.com/user-attachments/assets/d0b35df2-6293-4bec-8a26-5f5e2a12659d)
