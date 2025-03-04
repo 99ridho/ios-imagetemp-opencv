@@ -5,8 +5,8 @@
 //  Created by Ridho Kurniawan on 08/07/24.
 //
 
-import SwiftUI
 import Photos
+import SwiftUI
 
 struct ImageTemperatureContentView: View {
     @StateObject private var viewModel = ImageTemperatureViewModel()
@@ -21,12 +21,15 @@ struct ImageTemperatureContentView: View {
                     Image(uiImage: viewModel.editedImage ?? selectedImage)
                         .resizable()
                         .scaledToFit()
-                    
+
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Image Temperature")
-                        Slider(value: $viewModel.temperature, in: -100...100, step: 1)
-                            .tint(viewModel.sliderTintColor)
-                        
+                        Slider(
+                            value: $viewModel.temperature, in: -100...100,
+                            step: 1
+                        )
+                        .tint(viewModel.sliderTintColor)
+
                         Button(action: {
                             self.saveImage()
                         }) {
@@ -37,7 +40,10 @@ struct ImageTemperatureContentView: View {
                             }
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(viewModel.temperature != 0 ? Color.blue : Color.gray)
+                            .background(
+                                viewModel.temperature != 0
+                                    ? Color.blue : Color.gray
+                            )
                             .foregroundColor(.white)
                             .cornerRadius(4)
                         }
@@ -45,7 +51,7 @@ struct ImageTemperatureContentView: View {
                         .padding()
                         .disabled(viewModel.temperature == 0)
                     }
-                    
+
                 } else {
                     Text("To start, select the photo first")
                 }
@@ -59,7 +65,7 @@ struct ImageTemperatureContentView: View {
                         self.isImagePickerPresented = true
                     }
                 }
-                
+
                 ToolbarItem(placement: .topBarLeading) {
                     if self.viewModel.temperature != 0 {
                         Button {
@@ -81,20 +87,34 @@ struct ImageTemperatureContentView: View {
                     self.alertShown = false
                 }
             }
+            .alert(
+                "Error",
+                isPresented: $errorAlertShown,
+                actions: {
+                    Button("OK") {
+                        self.errorAlertShown = false
+                    }
+                },
+                message: {
+                    Text(
+                        "Please grant the permission for saving image to your photo library."
+                    )
+                }
+            )
             .onAppear {
                 print(OpenCV.getVersion())
             }
         }
     }
-    
+
     private func saveImage() {
         let doSaveImage: () -> Void = { () in
             self.viewModel.saveImage()
             self.alertShown = true
         }
-        
+
         let status = PHPhotoLibrary.authorizationStatus(for: .addOnly)
-        
+
         switch status {
         case .authorized:
             doSaveImage()
