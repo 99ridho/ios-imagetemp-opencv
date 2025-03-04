@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		7F0EF46C2C3C4F7700B0A5DC /* ImageTempEditorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0EF46B2C3C4F7700B0A5DC /* ImageTempEditorApp.swift */; };
-		7F0EF46E2C3C4F7700B0A5DC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0EF46D2C3C4F7700B0A5DC /* ContentView.swift */; };
+		7F0EF46E2C3C4F7700B0A5DC /* ImageTemperatureContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F0EF46D2C3C4F7700B0A5DC /* ImageTemperatureContentView.swift */; };
 		7F0EF4702C3C4F7900B0A5DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F0EF46F2C3C4F7900B0A5DC /* Assets.xcassets */; };
 		7F0EF4732C3C4F7900B0A5DC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F0EF4722C3C4F7900B0A5DC /* Preview Assets.xcassets */; };
 		7F85C6F42D769DB300A914A5 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F85C6F32D769DB300A914A5 /* ImagePicker.swift */; };
+		7FAA79082D76F88A00B12453 /* ImageTemperatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAA79072D76F88A00B12453 /* ImageTemperatureViewModel.swift */; };
 		7FC97A822D76B23E00D4DB23 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FC97A7D2D76B23E00D4DB23 /* Accelerate.framework */; };
 		7FC97A832D76B23E00D4DB23 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FC97A7E2D76B23E00D4DB23 /* CoreFoundation.framework */; };
 		7FC97A842D76B23E00D4DB23 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FC97A7F2D76B23E00D4DB23 /* AssetsLibrary.framework */; };
@@ -24,11 +25,12 @@
 /* Begin PBXFileReference section */
 		7F0EF4682C3C4F7700B0A5DC /* ImageTempEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageTempEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F0EF46B2C3C4F7700B0A5DC /* ImageTempEditorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTempEditorApp.swift; sourceTree = "<group>"; };
-		7F0EF46D2C3C4F7700B0A5DC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7F0EF46D2C3C4F7700B0A5DC /* ImageTemperatureContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTemperatureContentView.swift; sourceTree = "<group>"; };
 		7F0EF46F2C3C4F7900B0A5DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F0EF4722C3C4F7900B0A5DC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7F85C6F32D769DB300A914A5 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		7F889DE42D76D6FE0019A791 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		7FAA79072D76F88A00B12453 /* ImageTemperatureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTemperatureViewModel.swift; sourceTree = "<group>"; };
 		7FC97A7D2D76B23E00D4DB23 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		7FC97A7E2D76B23E00D4DB23 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		7FC97A7F2D76B23E00D4DB23 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -146,7 +148,8 @@
 		7FC97A8E2D76B67600D4DB23 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7F0EF46D2C3C4F7700B0A5DC /* ContentView.swift */,
+				7FAA79072D76F88A00B12453 /* ImageTemperatureViewModel.swift */,
+				7F0EF46D2C3C4F7700B0A5DC /* ImageTemperatureContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -222,8 +225,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FAA79082D76F88A00B12453 /* ImageTemperatureViewModel.swift in Sources */,
 				7F85C6F42D769DB300A914A5 /* ImagePicker.swift in Sources */,
-				7F0EF46E2C3C4F7700B0A5DC /* ContentView.swift in Sources */,
+				7F0EF46E2C3C4F7700B0A5DC /* ImageTemperatureContentView.swift in Sources */,
 				7FC97A8B2D76B2F800D4DB23 /* OpenCV.mm in Sources */,
 				7F0EF46C2C3C4F7700B0A5DC /* ImageTempEditorApp.swift in Sources */,
 			);
@@ -360,6 +364,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ImageTempEditor/Assets/Preview Content\"";
+				DEVELOPMENT_TEAM = B68EH8VRHF;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -396,6 +401,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ImageTempEditor/Assets/Preview Content\"";
+				DEVELOPMENT_TEAM = B68EH8VRHF;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

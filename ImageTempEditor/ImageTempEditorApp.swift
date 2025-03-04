@@ -11,7 +11,7 @@ import SwiftUI
 struct ImageTempEditorApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ImageTemperatureContentView()
         }
     }
 }

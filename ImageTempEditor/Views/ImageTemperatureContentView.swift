@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ImageTemperatureContentView.swift
 //  HelloSwiftUI
 //
 //  Created by Ridho Kurniawan on 08/07/24.
@@ -7,29 +7,28 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ImageTemperatureContentView: View {
+    @StateObject private var viewModel = ImageTemperatureViewModel()
     @State private var isImagePickerPresented = false
-    @State private var selectedImage: UIImage?
-    @State private var temperature: Float = 0
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
-                if let selectedImage = self.selectedImage {
-                    Image(uiImage: selectedImage)
+                if let selectedImage = viewModel.selectedImage {
+                    Image(uiImage: viewModel.editedImage ?? selectedImage)
                         .resizable()
                         .scaledToFit()
                     
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Image Temperature")
-                        Slider(value: $temperature, in: -100...100, step: 1)
-                            .tint(temperature == 0 ? .gray : temperature < 0 ? .blue : temperature > 0 && temperature <= 50 ? .orange : .red)
+                        Slider(value: $viewModel.temperature, in: -100...100, step: 0.1)
+                            .tint(viewModel.sliderTintColor)
                         
                         Button(action: {
                             print("Save button tapped")
                         }) {
                             HStack {
-                                Image(systemName: "externaldrive.fill") // Floppy disk icon alternative
+                                Image(systemName: "externaldrive.fill")
                                 Text("Save")
                                     .fontWeight(.bold)
                             }
@@ -39,7 +38,7 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .cornerRadius(4)
                         }
-                        .buttonStyle(.borderless) // Ensures no unwanted styling
+                        .buttonStyle(.borderless)
                         .padding()
                     }
                     
@@ -56,15 +55,22 @@ struct ContentView: View {
                         self.isImagePickerPresented = true
                     }
                 }
+                
+                ToolbarItem(placement: .topBarLeading) {
+                    if self.viewModel.temperature != 0 {
+                        Button {
+                            self.viewModel.temperature = 0
+                        } label: {
+                            Text("Reset")
+                        }
+                    }
+                }
             }
             .sheet(isPresented: $isImagePickerPresented) {
                 ImagePicker(
                     isImagePickerPresented: $isImagePickerPresented,
-                    selectedImage: $selectedImage
+                    selectedImage: $viewModel.selectedImage
                 )
-            }
-            .onChange(of: temperature) { oldValue, newValue in
-                print(newValue)
             }
             .onAppear {
                 print(OpenCV.getVersion())
@@ -74,5 +80,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ImageTemperatureContentView()
 }

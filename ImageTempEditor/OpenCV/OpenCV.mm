@@ -17,30 +17,47 @@
 }
 
 + (UIImage *)adjustTemperatureForImage:(UIImage *)image withValue:(float) temperature {
+    if (!image) return nil;  // Safety check
+
     cv::Mat mat;
     UIImageToMat(image, mat);
+
+    // Ensure the image has 3 channels (RGB)
+    if (mat.channels() < 3) return image;
     
     // Split channels
     std::vector<cv::Mat> channels(3);
     cv::split(mat, channels);
 
-    // Modify blue and red channels based on temperature
+    // Normalize temperature to the range [0, 1] based on the temperature scale (-50 to 50)
+    float scale = fabs(temperature) / 100.0;  // Normalize to [0, 1]
+
     if (temperature > 0) {
-        // Warmer: Increase red, decrease blue
-        channels[2] = channels[2] + cv::Scalar(temperature, temperature, temperature);  // Red channel
-        channels[0] = channels[0] - cv::Scalar(temperature, temperature, temperature);  // Blue channel
+        // Warmer: Increase Red, Decrease Blue
+        channels[0] += cv::Scalar(scale * 255, scale * 255, scale * 255); // Increase Red
+        channels[2] -= cv::Scalar(scale * 255, scale * 255, scale * 255); // Decrease Blue
     } else {
-        // Colder: Increase blue, decrease red
-        channels[2] = channels[2] - cv::Scalar(-temperature, -temperature, -temperature);  // Red channel
-        channels[0] = channels[0] + cv::Scalar(-temperature, -temperature, -temperature);  // Blue channel
+        // Colder: Increase Blue, Decrease Red
+        channels[2] += cv::Scalar(scale * 255, scale * 255, scale * 255); // Increase Blue
+        channels[0] -= cv::Scalar(scale * 255, scale * 255, scale * 255); // Decrease Red
     }
+
+    // Clip values to 0-255 to avoid overflow
+    cv::threshold(channels[2], channels[2], 255, 255, cv::THRESH_TRUNC);
+    cv::threshold(channels[0], channels[0], 255, 255, cv::THRESH_TRUNC);
 
     // Merge back channels
     cv::merge(channels, mat);
-
-    // Convert back to UIImage
-    UIImage *resultImage = MatToUIImage(mat);
-    return resultImage;
+    
+    UIImage* result = MatToUIImage(mat);
+    
+    // Release memory
+    mat.release();
+    channels[0].release();
+    channels[1].release();
+    channels[2].release();
+    
+    return result;
 }
 
 @end
