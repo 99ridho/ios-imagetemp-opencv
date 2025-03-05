@@ -20,7 +20,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
-                parent.selectedImage = image
+                parent.selectedImage = image.normalize()
             }
             parent.isImagePickerPresented = false
         }
@@ -44,4 +44,23 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+}
+
+extension UIImage {
+    func normalize() -> UIImage {
+        // If the image is already in the correct orientation, return it
+        if self.imageOrientation == .up {
+            return self
+        }
+
+        // Define the drawing context
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        defer { UIGraphicsEndImageContext() }
+
+        // Draw the image in the correct orientation
+        self.draw(in: CGRect(origin: .zero, size: self.size))
+
+        // Get the new image from context
+        return UIGraphicsGetImageFromCurrentImageContext() ?? self
+    }
 }
