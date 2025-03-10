@@ -15,7 +15,6 @@ class ImageTemperatureViewModel: ObservableObject {
     @Published var sliderTintColor: Color = .blue
     
     private var cancellables = Set<AnyCancellable>()
-    private let processingQueue = DispatchQueue(label: "image.processing", qos: .userInitiated)
 
     init() {
         $selectedImage
@@ -52,13 +51,11 @@ class ImageTemperatureViewModel: ObservableObject {
     private func applyTemperatureChange(_ newValue: Float) {
         guard let originalImage = self.selectedImage else { return }
 
-        processingQueue.async { [weak self] in
-            autoreleasepool {
-                let newImage = OpenCV.adjustTemperature(for: originalImage, withValue: newValue)
-                
-                DispatchQueue.main.async {
-                    self?.editedImage = newImage
-                }
+        Task(priority: .userInitiated) {
+            let newImage = OpenCV.adjustTemperature(for: originalImage, withValue: newValue)
+            
+            await MainActor.run {
+                self.editedImage = newImage
             }
         }
     }
